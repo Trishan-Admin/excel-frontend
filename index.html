@@ -1,46 +1,76 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Excel Processor</title>
 
     <style>
 
         body {
-            font-family: Arial;
-            background: #f4f4f4;
+
+            margin: 0;
+            padding: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f6f9;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             height: 100vh;
         }
 
         .container {
 
             background: white;
+
             padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+            border-radius: 15px;
+
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+
+            width: 400px;
 
             text-align: center;
         }
 
+        h1 {
+
+            color: #333;
+        }
+
         button {
 
-            padding: 10px 20px;
             background: #007bff;
+
             color: white;
+
             border: none;
+
+            padding: 12px 20px;
+
             border-radius: 8px;
+
             cursor: pointer;
+
+            margin-top: 20px;
         }
 
         button:hover {
 
             background: #0056b3;
+        }
+
+        #status {
+
+            margin-top: 20px;
         }
 
     </style>
@@ -53,15 +83,17 @@
 
         <h1>Excel Processor</h1>
 
+        <p>Upload your Excel file</p>
+
         <input type="file" id="fileInput">
 
-        <br><br>
+        <br>
 
         <button onclick="uploadFile()">
             Upload & Process
         </button>
 
-        <p id="status"></p>
+        <div id="status"></div>
 
     </div>
 
@@ -69,13 +101,18 @@
 
         async function uploadFile() {
 
-            const fileInput = document.getElementById("fileInput");
+            const fileInput =
+                document.getElementById("fileInput");
+
+            const status =
+                document.getElementById("status");
 
             const file = fileInput.files[0];
 
             if (!file) {
 
-                alert("Please select a file");
+                status.innerText =
+                    "Please select a file.";
 
                 return;
             }
@@ -84,7 +121,7 @@
 
             formData.append("file", file);
 
-            document.getElementById("status").innerText =
+            status.innerText =
                 "Processing...";
 
             try {
@@ -99,9 +136,11 @@
 
                 const blob = await response.blob();
 
-                const url = window.URL.createObjectURL(blob);
+                const url =
+                    window.URL.createObjectURL(blob);
 
-                const a = document.createElement("a");
+                const a =
+                    document.createElement("a");
 
                 a.href = url;
 
@@ -109,7 +148,7 @@
 
                 a.click();
 
-                document.getElementById("status").innerText =
+                status.innerText =
                     "Completed successfully.";
 
             }
@@ -118,7 +157,7 @@
 
                 console.error(error);
 
-                document.getElementById("status").innerText =
+                status.innerText =
                     "Error occurred.";
             }
         }
@@ -128,4 +167,3 @@
 </body>
 
 </html>
-```
